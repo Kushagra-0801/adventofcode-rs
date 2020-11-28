@@ -1,3 +1,4 @@
+use std::env;
 use std::fmt::Display;
 use std::fs::File;
 use std::path::PathBuf;
@@ -65,7 +66,7 @@ impl Run {
         if let Some(ref path) = self.input {
             file = File::open(path)?;
         } else {
-            let path = env!("AOC_INPUT").join(format!("day{}", self.day.get()));
+            let path = env::var("AOC_INPUT")?.join(format!("day{}", self.day.get()));
             file = File::open(path)?;
         }
         let code = self.day.get_code();

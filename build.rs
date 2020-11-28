@@ -1,8 +1,6 @@
-#![allow(unused)]
-
 use std::fs;
 use std::fs::OpenOptions;
-use std::io::{self, prelude::*};
+use std::io::prelude::*;
 
 const SOLUTION: &str = "use crate::AoCDay;
 
@@ -20,7 +18,7 @@ impl AoCDay for Code {
 ";
 
 fn main() {
-    // println!("cargo:rerun-if-changed=src/main.rs");
+    println!("cargo:rerun-if-changed=src/build.rs");
     // println!("cargo:rerun-if-changed=src/lib.rs");
 
     add_year_in_init();
@@ -31,7 +29,7 @@ fn main() {
 }
 
 fn set_up_solution_files() {
-    fs::create_dir_all("src/solutions/");
+    fs::create_dir_all("src/solutions/").expect("Cannot create solution directory");
     for day in 1..=25 {
         let path = format!("src/solutions/day{}.rs", day);
         fs::write(path, SOLUTION).expect("Failed to create solution file");
@@ -82,7 +80,8 @@ fn session_and_input_dir() {
 }
 
 fn add_year_in_init() {
-    let year = env!("AOC_YEAR");
+    // let year = env!("AOC_YEAR");
+    let year = "2020";
     assert!(
         year.chars().all(char::is_numeric),
         "Year should be a number"
