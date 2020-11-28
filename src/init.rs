@@ -1,3 +1,5 @@
+use std::env;
+
 use color_eyre::eyre::Result;
 use structopt::StructOpt;
 
@@ -12,12 +14,12 @@ pub struct Init {
 
 impl Init {
     pub fn initialize(&self) -> Result<()> {
-        let input_path = env!("AOC_INPUT");
+        let input_path = env::var("AOC_INPUT")?;
         let input_path = input_path.join(format!("Day{}", self.day.get()));
         if input_path.is_file() {
             Ok(())
         } else {
-            let session = env!("AOC_SESSION");
+            let session = env::var("AOC_SESSION")?;
             let client = reqwest::blocking::Client::builder().gzip(true).build()?;
             let mut response = client
                 .get(&self.input_url())

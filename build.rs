@@ -30,14 +30,6 @@ fn main() {
     set_up_day_file();
 }
 
-fn year_and_author() -> (u16, &'static str) {
-    let year = env!("AOC_YEAR", "Need a year")
-        .parse()
-        .expect("Year should be a number");
-    let author = env!("AOC_AUTHOR", "Need an author");
-    (year, author)
-}
-
 fn set_up_solution_files() {
     fs::create_dir_all("src/solutions/");
     for day in 1..=25 {
