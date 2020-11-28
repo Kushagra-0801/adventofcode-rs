@@ -66,7 +66,8 @@ impl Run {
         if let Some(ref path) = self.input {
             file = File::open(path)?;
         } else {
-            let path = env::var("AOC_INPUT")?.join(format!("day{}", self.day.get()));
+            let path = env::var("AOC_INPUT")?;
+            let path = &path.join(format!("day{}", self.day.get()));
             file = File::open(path)?;
         }
         let code = self.day.get_code();
