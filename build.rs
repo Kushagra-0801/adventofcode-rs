@@ -91,7 +91,10 @@ fn session_and_input_dir() {
 
 fn add_year_in_init() {
     let year = env!("AOC_YEAR");
-    assert!(year.chars.all(char::is_numeric), "Year should be a number");
+    assert!(
+        year.chars().all(char::is_numeric),
+        "Year should be a number"
+    );
     let contents = fs::read_to_string("src/init.rs").expect("Need to open src/init.rs");
     let contents = contents.replace("0xFFFF", &format!("{}", year));
     fs::write("src/init.rs", contents).expect("Cannot write to src/init.rs");
