@@ -12,3 +12,4 @@ rand = "0.7.3"
 structopt = "0.3.20"
 reqwest = {version = "0.10.9", features = ["blocking", "gzip", "cookies"] }
 color-eyre = "0.5.8"
+dotenv = "0.15.0"

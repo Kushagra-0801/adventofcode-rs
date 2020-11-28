@@ -7,7 +7,6 @@ use color_eyre::eyre::Result;
 use structopt::StructOpt;
 
 use crate::day::Day;
-use crate::Config;
 
 #[derive(StructOpt)]
 pub struct Run {
@@ -66,9 +65,7 @@ impl Run {
         if let Some(ref path) = self.input {
             file = File::open(path)?;
         } else {
-            let path = Config::load()?
-                .input_path
-                .join(format!("day{}", self.day.get()));
+            let path = env!("AOC_INPUT").join(format!("day{}", self.day.get()));
             file = File::open(path)?;
         }
         let code = self.day.get_code();

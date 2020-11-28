@@ -23,7 +23,7 @@ fn main() {
     // println!("cargo:rerun-if-changed=src/main.rs");
     // println!("cargo:rerun-if-changed=src/lib.rs");
 
-    let (year, author) = year_and_author();
+    add_year_in_init();
     session_and_input_dir();
     set_up_solution_files();
     set_up_lib_file();
@@ -80,5 +80,19 @@ fn session_and_input_dir() {
         println!("NOTE: Session key needs to be added in .env");
         ""
     });
-    todo!()
+    let input_dir = option_env!("AOC_INPUT").unwrap_or_else(|| {
+        println!("Note: Using `inputs` directory in project root");
+        "inputs"
+    });
+    std::fs::create_dir_all(input_dir).expect("Failed to create input directory");
+    let env = format!("AOC_SESSION={}\nAOC_INPUT={}", session, input_dir);
+    fs::write(".env", env).expect("Failed to create .env file");
+}
+
+fn add_year_in_init() {
+    let year = env!("AOC_YEAR");
+    assert!(year.chars.all(char::is_numeric), "Year should be a number");
+    let contents = fs::read_to_string("src/init.rs").expect("Need to open src/init.rs");
+    let contents = contents.replace("0xFFFF", &format!("{}", year));
+    fs::write("src/init.rs", contents).expect("Cannot write to src/init.rs");
 }

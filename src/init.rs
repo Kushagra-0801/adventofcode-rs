@@ -2,7 +2,8 @@ use color_eyre::eyre::Result;
 use structopt::StructOpt;
 
 use crate::day::Day;
-use crate::Config;
+
+const YEAR: u16 = 0xFFFF;
 
 #[derive(StructOpt, Debug)]
 pub struct Init {
@@ -11,12 +12,12 @@ pub struct Init {
 
 impl Init {
     pub fn initialize(&self) -> Result<()> {
-        let conf = Config::load()?;
-        let input_path = conf.input_path.join(format!("Day{}", self.day.get()));
+        let input_path = env!("AOC_INPUT");
+        let input_path = input_path.join(format!("Day{}", self.day.get()));
         if input_path.is_file() {
             Ok(())
         } else {
-            let session = conf.session;
+            let session = env!("AOC_SESSION");
             let client = reqwest::blocking::Client::builder().gzip(true).build()?;
             let mut response = client
                 .get(&self.input_url())
@@ -33,6 +34,10 @@ impl Init {
     }
 
     fn input_url(&self) -> String {
-        format!("https://adventofcode.com/2020/day/{}/input", self.day.get())
+        format!(
+            "https://adventofcode.com/{}/day/{}/input",
+            YEAR,
+            self.day.get()
+        )
     }
 }
