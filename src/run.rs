@@ -1,7 +1,7 @@
 use std::env;
 use std::fmt::Display;
 use std::fs::File;
-use std::path::PathBuf;
+use std::path::{Path, PathBuf};
 use std::str::FromStr;
 
 use color_eyre::eyre::Result;
@@ -67,7 +67,7 @@ impl Run {
             file = File::open(path)?;
         } else {
             let path = env::var("AOC_INPUT")?;
-            let path = &path.join(format!("day{}", self.day.get()));
+            let path = Path::new(&path).join(format!("day{}", self.day.get()));
             file = File::open(path)?;
         }
         let code = self.day.get_code();

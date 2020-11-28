@@ -1,4 +1,5 @@
 use std::env;
+use std::path::Path;
 
 use color_eyre::eyre::Result;
 use structopt::StructOpt;
@@ -15,7 +16,7 @@ pub struct Init {
 impl Init {
     pub fn initialize(&self) -> Result<()> {
         let input_path = env::var("AOC_INPUT")?;
-        let input_path = input_path.join(format!("Day{}", self.day.get()));
+        let input_path = Path::new(input_path).join(format!("Day{}", self.day.get()));
         if input_path.is_file() {
             Ok(())
         } else {

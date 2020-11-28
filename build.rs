@@ -18,7 +18,7 @@ impl AoCDay for Code {
 ";
 
 fn main() {
-    println!("cargo:rerun-if-changed=src/build.rs");
+    println!("cargo:rerun-if-changed=build.rs");
     // println!("cargo:rerun-if-changed=src/lib.rs");
 
     add_year_in_init();
