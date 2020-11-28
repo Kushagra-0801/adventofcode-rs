@@ -16,7 +16,7 @@ pub struct Init {
 impl Init {
     pub fn initialize(&self) -> Result<()> {
         let input_path = env::var("AOC_INPUT")?;
-        let input_path = Path::new(input_path).join(format!("Day{}", self.day.get()));
+        let input_path = Path::new(&input_path).join(format!("Day{}", self.day.get()));
         if input_path.is_file() {
             Ok(())
         } else {
