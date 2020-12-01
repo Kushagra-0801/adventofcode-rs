@@ -62,20 +62,20 @@ impl Display for Part {
 
 impl Run {
     pub fn run(&self) -> Result<String> {
-        let file;
+        let mut file;
         if let Some(ref path) = self.input {
             file = File::open(path)?;
         } else {
             let path = env::var("AOC_INPUT")?;
-            let path = Path::new(&path).join(format!("day{}", self.day.get()));
+            let path = Path::new(&path).join(format!("Day{}", self.day.get()));
             file = File::open(path)?;
         }
         let code = self.day.get_code();
         let extra_args = &self.extra;
         let output = match self.part {
-            Part::Part1 => code.part1(&file, extra_args),
-            Part::Part2 => code.part2(&file, extra_args),
-            Part::Both => code.both(&file, extra_args),
+            Part::Part1 => code.part1(&mut file, extra_args),
+            Part::Part2 => code.part2(&mut file, extra_args),
+            Part::Both => code.both(&mut file, extra_args),
         };
         Ok(output)
     }

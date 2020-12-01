@@ -7,11 +7,11 @@ const SOLUTION: &str = "use crate::AoCDay;
 pub struct Code;
 
 impl AoCDay for Code {
-    fn part1(&self, _input: &dyn std::io::Read, _extra_argss: &[String]) -> String {
+    fn part1(&self, _input: &mut dyn std::io::Read, _extra_argss: &[String]) -> String {
         todo!()
     }
 
-    fn part2(&self, _input: &dyn std::io::Read, _extra_args: &[String]) -> String {
+    fn part2(&self, _input: &mut dyn std::io::Read, _extra_args: &[String]) -> String {
         todo!()
     }
 }
@@ -19,7 +19,6 @@ impl AoCDay for Code {
 
 fn main() {
     println!("cargo:rerun-if-changed=build.rs");
-    // println!("cargo:rerun-if-changed=src/lib.rs");
 
     add_year_in_init();
     session_and_input_dir();
